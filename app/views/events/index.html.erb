@@ -1,0 +1,36 @@
+
+<h1>Rails Girls Lima</h1>
+
+<%
+progress = @donations_total / @events.first.goal
+
+if (progress > 1) then 
+	progress = 1
+end
+ %>
+<p>Donaciones al <%= progress * 100 %>%
+<div id="progressbar"></div>
+</p>
+
+<script>
+$( "#progressbar" ).css("width", "<%= progress * 100 %>%");
+</script>
+
+<h2>Falta</h2>
+<div id="countdown"></div>
+<script>
+date = new Date(<%= @events.first.day.year %>, <%= @events.first.day.month %>-1, <%= @events.first.day.day %>);
+$('#countdown').countdown({until: date});
+
+</script>
+
+
+<h2>Agradecemos</h2>
+<ul>
+<% @donations.each do |donation| %>
+	<li><%= donation.name %> (<%= donation.twitter %>)  con S/. <%= donation.amount %></li>
+<% end %>
+</ul>
+
+<br />
+
