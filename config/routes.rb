@@ -1,11 +1,15 @@
 Railsgirls::Application.routes.draw do
-  resources :donations
+  ActiveAdmin.routes(self)
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
+  #resources :donations
 
 
-  resources :expenses
+  #resources :expenses
 
 
-  resources :events
+  #resources :events
 
 
   # The priority is based upon order of creation:
