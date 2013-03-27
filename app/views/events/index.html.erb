@@ -1,6 +1,12 @@
 
-<h1>Rails Girls Lima</h1>
+<link rel="stylesheet" href="../assets/stylesheets/style.css">
+ 
+<div class="encabezado">
 
+<h1><a href="http://railsgirls.com/lima">Rails Girls Lima</a></h1>
+<h2>Meta: S./ <%= @events.first.goal %></h2>
+<h3>Dia del Evento: <%= @events.first.day %></h3>
+</div>
 <%
 progress = @donations_total / @events.first.goal
 
@@ -25,7 +31,7 @@ $('#countdown').countdown({until: date});
 </script>
 
 
-<h2>Agradecemos</h2>
+<h2>Agradecemos a:</h2>
 <ul>
 <% @donations.each do |donation| %>
 	<li><%= donation.name %> (<%= donation.twitter %>)  con S/. <%= donation.amount %></li>
@@ -33,4 +39,11 @@ $('#countdown').countdown({until: date});
 </ul>
 
 <br />
+
+<div style="margin:0 15px 0 0;">
+              <a href="http://twitter.com/share" class="twitter-share-button" data-url="" data-text="Apoya a Rails Girls Lima :3 #railsgirlslima" data-count="horizontal" data-via="" data-related="karrisaarinen">
+            Tweet</a>
+              <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+              <p><a href="mailto:railsgirlslima@gmail.com">Contáctanos</a></p>
+ </div>
 

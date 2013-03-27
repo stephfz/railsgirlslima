@@ -1,0 +1,33 @@
+@import url('reset.css');
+@import url('960.css');
+@import url('text.css');
+
+html {
+  background:#F4F5F5;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+    background:#fff;
+  color: #390c00;
+  text-rendering: optimizeLegibility;
+  font-size:14px;
+}
+
+h1{
+  color: rgb(211, 54, 11);
+}
+
+#encabezado{
+  padding-left:340px;
+  padding-top:100px;
+  padding-bottom:30px;
+}
+
+a:link {color:rgb(211, 54, 11);}      /* unvisited link */
+a:visited {color:rgb(211, 54, 11);}  /* visited link */
+a:hover {color:rgb(211, 54, 11);}  /* mouse over link */
+a:active {color:rgb(211, 54, 11)F;}  /* selected link */ 
+
+
