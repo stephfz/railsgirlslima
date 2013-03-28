@@ -10,5 +10,6 @@
  *
  *= require_self
  *= require jquery.countdown
- *= require_tree .
+ *= require events
+ *= require style
  */

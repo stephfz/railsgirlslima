@@ -1,29 +1,59 @@
-@import url('reset.css');
-@import url('960.css');
-@import url('text.css');
 
-html {
-  background:#F4F5F5;
-}
 
 body {
-  margin: 0px;
+  margin: 0 auto;
   padding: 0px;
-    background:#fff;
+  background: #ffffff;
   color: #390c00;
+  font-family: helvetica, arial, verdana, sans serif;
   text-rendering: optimizeLegibility;
   font-size:14px;
 }
-
-h1{
-  color: rgb(211, 54, 11);
+#header{
+  background: #DD390D url('/assets/railsgirls-sq.png') no-repeat center top;
+  color: #FFFFFF;
+  height: 130px;
+  text-align: center;
+  padding-top: 90px;
+  font-size: 1.8em;
+}
+#header h1{
+	margin: 0;
+}
+#header a{
+	color: #ffffff;
+	text-decoration: none;
+}
+#sharethelove{
+  text-align: center;
+}
+#page{
+	margin: 0 auto;
+	min-height: 100%;
+	width: 800px;
+	padding-top: 20px;
+}
+#countdown{
+	width: 200px;
+	margin: 0 auto;
+}
+.centering{
+	text-align: center;
+	margin: 0 auto;
+}
+.centering p{
+	clear: both;
+	padding-top: 10px;
 }
 
-#encabezado{
-  padding-left:340px;
-  padding-top:100px;
-  padding-bottom:30px;
+#agradecimientos{
+	clear: both;
+	padding: 20px 0;
 }
+#agradecimientos td{
+	width: 200px;
+}
+
 
 a:link {color:rgb(211, 54, 11);}      /* unvisited link */
 a:visited {color:rgb(211, 54, 11);}  /* visited link */

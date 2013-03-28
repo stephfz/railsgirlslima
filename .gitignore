@@ -31,7 +31,5 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 
-.DS_Store
-app/.DS_Store
-db/.DS_Store
+*.DS_Store
 Gemfile.lock

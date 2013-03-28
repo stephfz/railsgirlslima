@@ -1,12 +1,6 @@
 
-<link rel="stylesheet" href="../assets/stylesheets/style.css">
- 
-<div class="encabezado">
-
-<h1><a href="http://railsgirls.com/lima">Rails Girls Lima</a></h1>
-<h2>Meta: S./ <%= @events.first.goal %></h2>
-<h3>Dia del Evento: <%= @events.first.day %></h3>
-</div>
+Hola! Si has llegado a esta página es porque sabes que estamos organizando el primer <a href="http://railsgirls.com/lima">Rails Girls en Lima</a>. Este evento será gratuito y está dirigido a despertar el interés de chicas en la tecnología Ruby on Rails. Ya tenemos local, fecha y hasta coaches. Sin embargo, nos hace falta presupuesto para comprar unas <a href="https://docs.google.com/spreadsheet/ccc?key=0AvNGZfgqU1PZdFhqa05CYW5KSEdYWEJFSTdia2w5ekE&usp=sharing">cosas básicas</a>, y por eso necesitamos tu apoyo! Toda ayuda es bienvenida, sólo <a href="mailto:railsgirlslima@gmail.com">envíanos un correo</a> para enviarte más información :)
+<h2>Nuestra meta: S/. <%= number_with_precision(@events.first.goal, :precision => 2) %></h2>
 <%
 progress = @donations_total / @events.first.goal
 
@@ -14,36 +8,34 @@ if (progress > 1) then
 	progress = 1
 end
  %>
-<p>Donaciones al <%= progress * 100 %>%
+
+Colaboraciones al <%= number_with_precision(progress * 100, :precision => 0) %>%
+<div id="progressbarcontainer">
 <div id="progressbar"></div>
-</p>
+</div>
 
 <script>
 $( "#progressbar" ).css("width", "<%= progress * 100 %>%");
 </script>
 
-<h2>Falta</h2>
+<div class="centering">
+<h2>Quedan</h2>
 <div id="countdown"></div>
 <script>
 date = new Date(<%= @events.first.day.year %>, <%= @events.first.day.month %>-1, <%= @events.first.day.day %>);
 $('#countdown').countdown({until: date});
-
 </script>
-
-
-<h2>Agradecemos a:</h2>
-<ul>
+<p>Día del evento: <%= @events.first.day %></p>
+</div>
+<div id="agradecimientos">
+<h2>Agradecimientos</h2>
+<table>
 <% @donations.each do |donation| %>
-	<li><%= donation.name %> (<%= donation.twitter %>)  con S/. <%= donation.amount %></li>
+	<tr><td>
+		<%= donation.twitter.empty?? donation.name : link_to(donation.name, "http://twitter.com/" + donation.twitter)  %></td><td>S/. <%= number_with_precision(donation.amount, :precision => 2) %></td></tr>
 <% end %>
-</ul>
-
+</table>
+</div>
 <br />
 
-<div style="margin:0 15px 0 0;">
-              <a href="http://twitter.com/share" class="twitter-share-button" data-url="" data-text="Apoya a Rails Girls Lima :3 #railsgirlslima" data-count="horizontal" data-via="" data-related="karrisaarinen">
-            Tweet</a>
-              <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-              <p><a href="mailto:railsgirlslima@gmail.com">Contáctanos</a></p>
- </div>
 

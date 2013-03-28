@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Railsgirls</title>
+  <title>Railsgirls Lima</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
+<div id="header">
+	<h1><a href="http://railsgirls.com/lima">Rails Girls<br/>Lima</a></h1>
+
+	
+</div>
+<div id="page">
 <%= yield %>
+	<div id="sharethelove">
+<a href="http://railsgirls.com/lima">Regístrate al evento</a> | <a href="https://docs.google.com/spreadsheet/ccc?key=0AvNGZfgqU1PZdFhqa05CYW5KSEdYWEJFSTdia2w5ekE&usp=sharing">Lista de Compras</a> | <a href="mailto:railsgirlslima@gmail.com">Contáctanos</a> 
+<p> 
+<a href="https://twitter.com/share" class="twitter-share-button" data-text="Apoya a Rails Girls Lima, estamos buscando colaboradores :3" data-hashtags="railsgirlslima">Tweet</a>
+								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</p>
+	</div>
+</div>
 
 </body>
 </html>
