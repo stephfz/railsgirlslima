@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '1.9.3'
 
 gem 'rails', '3.2.11'
-gem 'activeadmin'
+gem 'activeadmin', :git => "git://github.com/gregbell/active_admin.git"
 gem 'meta_search', '>= 1.1.0.pre'
 gem 'sass-rails',   '~> 3.2.3'
 
