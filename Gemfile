@@ -5,7 +5,8 @@ gem 'rails', '3.2.11'
 gem 'activeadmin', :git => "git://github.com/gregbell/active_admin.git"
 gem 'meta_search', '>= 1.1.0.pre'
 gem 'sass-rails',   '~> 3.2.3'
-
+gem 'omniauth-facebook'
+gem 'oauth2'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
