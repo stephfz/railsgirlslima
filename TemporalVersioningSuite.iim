@@ -1,0 +1,96 @@
+﻿VERSION BUILD=6060703 RECORDER=CR
+URL GOTO=http://dtv.plm.com:1234/
+
+SET !EXTRACT_TEST_POPUP NO
+
+SET !VAR1 "TempVersioningv7aa"
+SET !VAR2 "November 15, 2013" 
+SET !VAR3 "Nov 15, 2013"
+SET !VAR4 "December 15, 2013"
+ 
+'-------------------->Setup
+'Catalog and Category creation
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:NoFormName ATTR=ID:username CONTENT=Dan
+SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:NoFormName ATTR=ID:password CONTENT=Dan
+TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:NoFormName ATTR=*
+TAG POS=1 TYPE=SPAN ATTR=TXT:Product<SP>Composer
+URL GOTO=http://dtv.plm.com:1234/#/products/schema
+TAG XPATH="//nav[@id="help-step1"]/button[1]"
+TAG POS=1 TYPE=INPUT:TEXT FORM=ID:help-step2 ATTR=ID:new-catalog-name CONTENT={{!VAR1}}
+TAG POS=1 TYPE=TEXTAREA FORM=ID:help-step2 ATTR=ID:new-catalog-description CONTENT=Product<SP>Catalog<SP>for<SP>Temporal<SP>versioning<SP>Testing<SP>purposes.
+TAG POS=1 TYPE=I ATTR=CLASS:icon-save&&TXT:
+TAG POS=2 TYPE=I ATTR=CLASS:icon-plus-sign&&TXT:
+TAG POS=1 TYPE=LEGEND ATTR=TXT:New<SP>Category
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:NoFormName ATTR=ID:category-name CONTENT=Cat01
+TAG POS=1 TYPE=LEGEND ATTR=TXT:New<SP>Category
+TAG POS=1 TYPE=BUTTON FORM=NAME:NoFormName ATTR=ID:btnSaveCategory
+
+WAIT SECONDS=2
+
+'Launch Product
+TAG POS=1 TYPE=SPAN ATTR=TXT:Launch
+' Name Product
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:NoFormName ATTR=ID:product-name CONTENT={{!VAR1}}
+' Select Category
+TAG POS=1 TYPE=SELECT FORM=NAME:NoFormName ATTR=ID:product-template-category CONTENT=$Root<SP>»<SP>Cat01
+' Hit Save 
+WAIT SECONDS=1
+TAG XPATH="//nav[@class='toolbar']/button[1]"
+
+WAIT SECONDS=3
+'-------------------->/Setup
+
+'1. Create New Version
+TAG XPATH="//div[@id='fullscreen-wrapper']/div/div/div[2]/div/h1/nav/button[4]"
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:effective_start CONTENT={{!VAR2}}
+TAG XPATH="//div[@id='modal-wrapper']/div/form/fieldset[2]/nav/button[1]"
+TAG POS=1 TYPE=SPAN ATTR=TXT:{{!VAR3}}
+
+'2. Archive Version
+WAIT SECONDS=3
+TAG POS=2 TYPE=I ATTR=CLASS:icon-remove-sign&&TXT:
+WAIT SECONDS=1
+TAG POS=1 TYPE=H2 ATTR=TXT:Selected<SP>product<SP>version<SP>will<SP>be<SP>archived.
+TAG POS=1 TYPE=I ATTR=CLASS:icon-ok&&TXT:
+WAIT SECONDS=2
+'check element not present
+'TAG POS=1 TYPE=SPAN ATTR=TXT:Nov<SP>30,<SP>2013
+
+'3. Create Final Version
+TAG XPATH="//div[@id='fullscreen-wrapper']/div/div/div[2]/div/h1/nav/button[4]"
+WAIT SECONDS=1
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:effective_start CONTENT={{!VAR2}}
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:effective_until CONTENT={{!VAR4}}
+TAG XPATH="//div[@id='modal-wrapper']/div/form/fieldset[2]/nav/button[1]"
+TAG POS=1 TYPE=SPAN ATTR=TXT:{{!VAR3}}
+TAG POS=3 TYPE=I ATTR=CLASS:icon-edit&&TXT:
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:effective_start EXTRACT=TXT
+
+SET !VAR2 EVAL("var s=\"{{!EXTRACT}}\"; if(s!==\"{{!VAR2}}\"){MacroError(\"Wrong Start Date\");}else null")
+SET !EXTRACT NULL
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:effective_until EXTRACT=TXT
+SET !VAR2 EVAL("var s=\"{{!EXTRACT}}\"; if(s!==\"{{!VAR4}}\"){MacroError(\"Wrong Until Date\");}else null")
+SET !EXTRACT NULL
+TAG XPATH="//div[@id='modal-wrapper']/div/form/fieldset[2]/nav/button[2]"
+'3.1 Cannot add a final version if one exists
+TAG XPATH="//div[@id='fullscreen-wrapper']/div/div/div[2]/div/h1/nav/button[4]"
+TAG XPATH="//div[@id='modal-wrapper']/div/form/fieldset[2]/nav/button[1]"
+  '-Span should be shown "A final version already exists."
+TAG POS=1 TYPE=DIV ATTR=CLASS:div.action-alert.error EXTRACT=TXT
+TAG XPATH="//div[@id='modal-wrapper']/div/form/fieldset[2]/nav/button[2]" 
+
+'3.2 Can archive final version
+TAG POS=1 TYPE=SPAN ATTR=TXT:{{!VAR3}}
+TAG POS=2 TYPE=I ATTR=CLASS:icon-remove-sign&&TXT:
+WAIT SECONDS=1
+TAG POS=1 TYPE=H2 ATTR=TXT:Selected<SP>product<SP>version<SP>will<SP>be<SP>archived.
+TAG POS=1 TYPE=I ATTR=CLASS:icon-ok&&TXT:
+WAIT SECONDS=2
+'3.3 After archiving a final version, should be able to create a new final version
+'3.4 After archiving a version, a new version can be created with the same date
+TAG XPATH="//div[@id='fullscreen-wrapper']/div/div/div[2]/div/h1/nav/button[4]"
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:effective_start CONTENT={{!VAR2}}
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:effective_until CONTENT={{!VAR4}}
+'on creating other version
+'This date is already assigned to another version <span>
